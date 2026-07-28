@@ -1,0 +1,323 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+
+*@
+@* @{
+
+    <h1>This is a View Page</h1>
+
+    <a asp-action="List"> Click here to go to the List page</a>
+} *@
+
+@model NECOP_Form.Models.DesignationModel;
+
+
+ 
+
+<link rel="stylesheet" href="~/css/Designation.css" />
+
+
+<div class="student-page">
+
+    <div class="student-header">
+        <h1>View Registraton Details</h1>
+        <h2>
+            National Electronics Complex Of Pakistan
+        </h2>
+
+        <h4>
+            (Directorate Of Works &amp; Services)
+        </h4>
+
+        <h5>
+            (Process - W&amp;S)
+        </h5>
+
+    </div>
+
+ 
+
+
+
+    @* <div class="card p-3 mb-3">
+
+        <h5>Total Registered Forms</h5>
+
+        <h2>@ViewBag.TotalRecords</h2>
+
+        <a asp-action="List"
+           class="btn btn-primary">
+            View List
+        </a>
+
+    </div> *@
+
+
+
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="success-alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+ 
+
+
+   
+    
+    <partial name="TopNavigation" />
+
+
+
+    <a asp-action="List"
+       class="btn btn-secondary">
+        Back to List
+    </a>
+    
+
+    @* <form method="post" asp-action="Save" class="student-card" enctype="multipart/form-data"> *@
+
+        <div class="student-card">
+
+
+
+        <div class="col-md-6 mb-3">
+            @*Image upload karny k lie*@
+
+            <h2 class="section-heading">Your Uploaded Image is ..... </h2>
+
+            <label>Image</label>
+
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <img src="@Model.ImagePath"
+                     class="img-thumbnail"
+                     width="200" />
+                     
+            }
+            else
+            {
+                <p>No Image Uploaded</p>
+            }
+
+            <br />
+
+
+        </div>
+
+
+
+
+
+        <div class="col-md-6 mb-3">
+            @*File Upload karny k lie*@
+
+            <h2 class="section-heading">Uploaded File..... </h2>
+
+            <label>Your Uploaded File</label>
+
+            @if (!string.IsNullOrEmpty(Model.FilePath))
+            {
+                <a href="@Model.FilePath"
+                   target="_blank"
+                   class="btn btn-primary">
+                    View Document
+                </a>
+            }
+            else
+            {
+                <p>No Document Uploaded</p>
+            }
+
+        </div>
+
+
+        <!-- Part B + Ref No -->
+
+        <div class="row align-items-end mb-4">
+
+            <div class="col-md-6">
+
+                <h3 class="part-title">
+                    Part B - Works &amp; Services
+                </h3>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-bold">
+                @Model.RefNo
+                </label>
+                
+            </div>
+          
+
+
+
+
+
+
+        <!-- Registration -->
+
+        <h4 class="section-heading">
+            i. Registration / Estimation
+        </h4>
+
+
+            <table class="table table-bordered">
+                <tr>
+                    <th width="30%">Reference No</th>
+                    <td>@Model.RefNo</td>
+                </tr>
+
+                <tr>
+                    <th>Recorded By</th>
+                    <td>@Model.RecordedBy</td>
+                </tr>
+
+                <tr>
+                    <th>Officer Incharge</th>
+                    <td>@Model.Officer</td>
+                </tr>
+
+                <tr>
+                    <th>Task Name</th>
+                    <td>@Model.NameTasked</td>
+                </tr>
+
+                <tr>
+                    <th>Designation</th>
+                    <td>@Model.Designation</td>
+                </tr>
+
+                <tr>
+                    <th>Department</th>
+                    <td>@Model.Department?.DepartmentName</td>
+                </tr>
+
+                <tr>
+                    <th>Estimated Cost</th>
+                    <td>@Model.EstimatedCost</td>
+                </tr>
+
+                <tr>
+                    <th>Details Attached At</th>
+                    <td>@Model.details</td>
+                </tr>
+
+                <tr>
+                    <th>Verified By</th>
+                    <td>@Model.verify</td>
+                </tr>
+
+                <tr>
+                    <th>Registration Type</th>
+                    <td>@Model.RegistrationType</td>
+                </tr>
+
+                <tr>
+                    <th>Sanction Type</th>
+                    <td>@Model.SanctionType</td>
+                </tr>
+
+                <tr>
+                    <th>Other Budget Details</th>
+                    <td>@Model.OtherBudgetDetails</td>
+                </tr>
+
+                <tr>
+                    <th>Technical Sanction</th>
+                    <td>@Model.technical</td>
+                </tr>
+
+                <tr>
+                    <th>Execution Officer</th>
+                    <td>@Model.ExecutionOfficerIncharge</td>
+                </tr>
+
+                <tr>
+                    <th>Deployed Staff</th>
+                    <td>@Model.DeployedStaff</td>
+                </tr>
+
+                <tr>
+                    <th>End User Feedback</th>
+                    <td>@Model.EndUserFeedback</td>
+                </tr>
+
+                <tr>
+                    <th>Created Date</th>
+                    <td>@Model.CreatedAt.ToString("dd-MMM-yyyy")</td>
+                </tr>
+            </table>
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

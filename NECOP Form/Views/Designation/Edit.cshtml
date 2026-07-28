@@ -1,0 +1,688 @@
+﻿@model NECOP_Form.Models.DesignationModel;
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+ 
+@*for load the java script files of client side validation ye browser ko batataa hai k field empty hai error show karwana ha submit rokna ha isky andar normally javascript files load hoti hain
+    jquery.js
+    jquery.validate.js
+    jquery.validate.unobtrusive.js
+*@
+
+<link rel="stylesheet" href="~/css/Designation.css" />
+
+
+<div class="student-page">
+
+    <div class="student-header">
+
+        <h2>
+            National Electronics Complex Of Pakistan
+        </h2>
+
+        <h4>
+            (Directorate Of Works &amp; Services)
+        </h4>
+
+        <h5>
+            (Process - W&amp;S)
+        </h5>
+
+    </div>
+
+
+
+    @* <div class="card p-3 mb-3">
+
+        <h5>Total Registered Forms</h5>
+
+        <h2>@ViewBag.TotalRecords</h2>
+
+        <a asp-action="List"
+           class="btn btn-primary">
+            View List
+        </a>
+
+    </div> *@
+
+
+
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="success-alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+
+    
+
+
+
+    <partial name="TopNavigation" />
+
+    <form method="post" asp-action="Edit" class="student-card">
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="CreatedAt" />
+
+
+
+        <div class="col-md-6 mb-3">
+            @*Image upload karny k lie*@
+
+            <h2 class="section-heading">Upload your Image here..... </h2>
+
+            <label>Upload Image</label>
+
+            <input type="file"
+                   name="ImageFile"
+                   class="form-control"
+                   accept="image/*"
+                   id="ImageFile" />
+
+            <br />
+
+
+            <img id="imagePreview"
+                 src=""
+                 style="display:none;
+            width:180px;
+            height:180px;
+            object-fit:cover;
+            border:1px solid #ccc;
+            border-radius:8px;" />
+
+
+        </div>
+
+
+
+
+
+        <div class="col-md-6 mb-3">
+            @*File Upload karny k lie*@
+
+            <h2 class="section-heading">Upload your file here..... </h2>
+
+            <label>Upload File (CV/PDF)</label>
+
+            <input type="file"
+                   name="DocumentFile"
+                   class="form-control" />
+
+        </div>
+
+
+        <!-- Part B + Ref No -->
+
+        <div class="row align-items-end mb-4">
+
+            <div class="col-md-6">
+
+                <h3 class="part-title">
+                    Part B - Works &amp; Services
+                </h3>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <label class="form-label fw-bold">
+                    Ref.No.W&amp;S-20/JC/2026/
+                </label>
+
+                <input asp-for="RefNo"
+                       class="form-control student-input"
+                       value=Ref.No.W&S-20/JC/@DateTime.Now.Year/ />
+
+
+                <span asp-validation-for="RefNo" class="text-danger"></span>
+            </div>
+
+        </div>
+
+
+
+
+
+
+        <!-- Registration -->
+
+        <h4 class="section-heading">
+            i. Registration / Estimation
+        </h4>
+
+
+
+        <div class="row">
+
+
+            <div class="col-md-6 mb-3">
+
+                <label>Recorded By (JCM/CM)</label>
+
+                <input asp-for="RecordedBy"
+                       class="form-control student-input" />
+
+            </div>
+
+           
+            <div class="col-md-6 mb-3">
+
+               
+                <label>Officer Incharge</label>
+
+                <input asp-for="Officer"
+                       class="form-control student-input" />
+                <span asp-validation-for="Officer" class="text-danger">
+
+                </span>
+
+            </div>
+
+          
+
+        </div>
+
+
+
+        <div class="row">
+
+
+            <div class="col-md-6 mb-3">
+
+                <label>Task Name</label>
+
+                <input asp-for="NameTasked"
+                       class="form-control student-input" />
+                <span asp-validation-for="NameTasked" class="text-danger"></span>
+
+            </div>
+
+
+            <div class="col-md-6 mb-3">
+
+                <label>Designation</label>
+
+                <select asp-for="Designation"
+                        class="form-control student-input">
+
+
+                    <option value="">
+                        -- Select Designation --
+                    </option>
+
+
+                    @foreach (var item in ViewBag.designation)
+                    {
+                        <option value="@item.Name">
+                            @item.Name
+                        </option>
+                    }
+
+
+                </select>
+                <span asp-validation-for="Designation" class="text-danger"></span>
+
+              
+
+
+            </div>
+
+
+
+            <div class="row">
+
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Estimated Cost</label>
+
+                    <input asp-for="EstimatedCost"
+                           class="form-control student-input" type="number" />
+
+                           
+
+                    <span asp-validation-for="EstimatedCost" class="text-danger"></span>
+
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Details Attached At</label>
+
+                    <input asp-for="details"
+                           class="form-control student-input" />
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="mb-4">
+
+                <label>
+                    Verified By Officer Incharge
+                </label>
+
+
+                <input asp-for="verify"
+                       class="form-control student-input" />
+
+            </div>
+
+
+
+
+            <!-- Registration Radio -->
+
+            <div class="option-box mb-4">
+
+
+                <div class="form-check">
+
+                    <input class="form-check-input"
+                           type="radio"
+                           asp-for="RegistrationType"
+                           value="Store Available">
+
+                    <label class="form-check-label">
+                        Store Available
+                    </label>
+
+                    
+
+                </div>
+
+
+
+                <div class="form-check">
+
+                    <input class="form-check-input"
+                           type="radio"
+                           asp-for="RegistrationType"
+                           value="Not Available">
+
+                    <label class="form-check-label">
+                        Not Available
+                    </label>
+
+                  
+
+
+                </div>
+                <span asp-validation-for="ExecutionOfficerIncharge" class="text-danger"></span>
+
+            </div>
+
+
+
+
+
+            @*Department aa raha*@
+
+            <select asp-for="DepartmentId" class="form-control">
+                <option value="">-- Select Department --</option>
+
+                @foreach (var item in ViewBag.Departments)
+                {
+                    <option value="@item.DepartmentId">
+                        @item.DepartmentName
+                    </option>
+                }
+            </select>
+
+
+
+
+
+
+
+
+
+            <!-- Sanction -->
+
+            <h4 class="section-heading">
+                ii. Sanction
+            </h4>
+
+
+            <div class="option-box mb-4">
+
+
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           asp-for="SanctionType"
+                           value="Imprest Advance"
+                           id="imprestadvance">
+
+                    <label>
+                        Imprest Advance
+                    </label>
+                </div>
+
+
+
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           asp-for="SanctionType"
+                           value="User Budget"
+                           id="userbudget">
+
+                    <label>
+                        User Budget
+                    </label>
+                </div>
+
+
+
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           asp-for="SanctionType"
+                           value="W&S Budget"
+                           id="w&s">
+
+                    <label>
+                        W&amp;S Budget
+                    </label>
+                </div>
+
+
+
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           asp-for="SanctionType"
+                           value="Any Other Budget"
+                           id="anyOtherBudget">
+
+                    <label>
+                        Any Other Budget
+                    </label>
+                </div>
+
+                <div id="otherBudgetBox" style="display:none;" class="mb-4">
+
+                    <label>
+                        Enter Other Budget Details
+                    </label>
+
+                    <input asp-for="OtherBudgetDetails"
+                           class="form-control student-input"
+                           placeholder="Write details..." />
+
+                </div>
+
+
+            </div>
+
+            <span asp-validation-for="SanctionType" class="text-danger"></span>
+
+            <div class="mb-4">
+
+                <label>
+                    Technical Sanction Dir (W&amp;S)
+                </label>
+
+                <input asp-for="technical"
+                       class="form-control student-input" />
+
+
+
+
+
+            </div>
+
+
+
+
+            <!-- Execution -->
+
+            <h4 class="section-heading">
+                iii. Execution
+            </h4>
+
+
+            <div class="mb-3">
+
+                <label>
+                    Officer Incharge
+                </label>
+
+                <input asp-for="ExecutionOfficerIncharge"
+                       class="form-control student-input" />
+
+            </div>
+
+
+
+            <div class="mb-4">
+
+                <label>
+                    Deployed Staff
+                </label>
+
+                <input asp-for="DeployedStaff"
+                       class="form-control student-input" />
+
+            </div>
+            <span asp-validation-for="ExecutionOfficerIncharge" class="text-danger"></span>
+
+
+
+
+            <!-- Feedback -->
+
+           
+            <h4 class="section-heading">
+                iv. Feedback - End User
+            </h4>
+
+
+
+            <div class="option-box mb-4">
+
+
+                <div class="form-check">
+                    <input asp-for="EndUserFeedback"
+                           value="Excellent"
+                           class="form-check-input"
+                           type="radio" disabled>
+
+                    <label>
+                        Excellent
+                    </label>
+                </div>
+
+
+                <div class="form-check">
+                    <input asp-for="EndUserFeedback"
+                           value="V.Good"
+                           class="form-check-input"
+                           type="radio" disabled>
+
+                    <label>
+                        V.Good
+                    </label>
+                </div>
+
+
+                <div class="form-check">
+                    <input asp-for="EndUserFeedback"
+                           value="Good"
+                           class="form-check-input"
+                           type="radio" disabled>
+
+                    <label>
+                        Good
+                    </label>
+                </div>
+
+
+                <div class="form-check">
+                    <input asp-for="EndUserFeedback"
+                           value="Not Satisfactory"
+                           class="form-check-input"
+                           type="radio" disabled>
+
+                    <label>
+                        Not Satisfactory
+                    </label>
+                </div>
+
+           
+
+
+
+                @*   <div class="feedback-section d-none">
+
+                <h4 class="section-heading">
+                    iv. Feedback - End User
+                </h4>
+
+
+                <div class="option-box mb-4">
+
+                    <div class="form-check">
+                        <input asp-for="EndUserFeedback"
+                               value="Excellent"
+                               class="form-check-input"
+                               type="radio">
+
+                        <label>
+                            Excellent
+                        </label>
+                    </div>
+
+
+                    <div class="form-check">
+                        <input asp-for="EndUserFeedback"
+                               value="V.Good"
+                               class="form-check-input"
+                               type="radio">
+
+                        <label>
+                            V.Good
+                        </label>
+                    </div>
+
+
+                    <div class="form-check">
+                        <input asp-for="EndUserFeedback"
+                               value="Good"
+                               class="form-check-input"
+                               type="radio">
+
+                        <label>
+                            Good
+                        </label>
+                    </div>
+
+
+                    <div class="form-check">
+                        <input asp-for="EndUserFeedback"
+                               value="Not Satisfactory"
+                               class="form-check-input"
+                               type="radio">
+
+                        <label>
+                            Not Satisfactory
+                        </label>
+                    </div>
+
+                </div>
+
+            </div> *@
+
+            </div>
+
+
+
+            <button type="submit" class="save-btn">
+                Save
+            </button>
+
+
+        </form>
+
+        <script>
+
+                document.querySelectorAll('input[name="SanctionType"]')
+                    .forEach(function(radio) {
+
+                        radio.addEventListener("change", function() {
+
+                            var box = document.getElementById("otherBudgetBox");
+
+                            if (this.value === "Any Other Budget") {
+                                box.style.display = "block";
+                            }
+                            else {
+                                box.style.display = "none";
+                            }
+
+                        });
+
+                    });
+
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+
+                document.getElementById("ImageFile").addEventListener("change", function(e) {
+
+                    var file = e.target.files[0];
+
+                    if (file) {
+
+                        var reader = new FileReader();
+
+                        reader.onload = function(event) {
+
+                            var img = document.getElementById("imagePreview");
+
+                            img.src = event.target.result;
+
+                            img.style.display = "block";
+                        };
+
+                        reader.readAsDataURL(file);
+                    }
+
+                });
+
+        </script>
+
+
+
+
+
+
+
+
+

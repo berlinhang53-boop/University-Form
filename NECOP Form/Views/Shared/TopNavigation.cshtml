@@ -1,0 +1,84 @@
+﻿@* <div class="top-nav">
+
+    <div class="nav-left">
+        <h5>Total Registered Forms</h5>
+        <span class="badge bg-primary fs-6">
+            @ViewBag.TotalRecords
+        </span>
+    </div>
+
+    <div class="nav-right">
+        <a asp-controller="Designation"
+           asp-action="List"
+           class="btn btn-primary">
+            View List
+        </a>
+    </div>
+
+</div> *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* 
+<div class="top-nav">
+
+    <div class="nav-left">
+        <h5>Total Registered Forms</h5>
+        <span class="total-count">
+            @ViewBag.TotalRecords
+        </span>
+    </div>
+
+    <div class="nav-right">
+        <a asp-action="List" class="view-btn">
+            📋 View List
+        </a>
+    </div>
+
+</div> *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="top-nav">
+
+    <div class="counter-box">
+
+        <div class="counter-icon">
+            📄
+        </div>
+
+        <div class="counter-text">
+            <small >Total Registered Forms</small>
+            <h2>@ViewBag.TotalRecords</h2>
+        </div>
+
+    </div>
+
+    <a asp-action="List" class="view-btn">
+        📄  View List
+    </a>
+
+</div>

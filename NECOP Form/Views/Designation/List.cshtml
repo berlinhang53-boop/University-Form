@@ -1,0 +1,381 @@
+﻿
+
+@model IEnumerable<NECOP_Form.Models.DesignationModel>
+
+<link rel="stylesheet" href="~/css/List.css" />
+<link rel="stylesheet" href="~/css/Designation.css" />
+
+<div class="list-page">
+
+    <div class="student-header">
+        <h2>Registration List</h2>
+        @* <p>National Electronics Complex Of Pakistan - Works & Services</p> *@
+        <h2>National Electronics Complex Of Pakistan - Works & Services</h2>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="success-alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+
+
+
+
+    <form  asp-action="List" method="get" >
+        <div class="search-box">
+            <input type="text"
+               name="searchString" 
+               class="form-control"
+               placeholder="SearchBy RefNo, Designation,Departments,Task......."
+               value="@ViewBag.CurrentSearch"/>
+
+
+
+
+               <button type="submit" >Search</button>
+
+               <a asp-action="List" >Reset</a>
+
+
+        </div>
+
+
+
+    </form>
+     
+
+    <div class="table-card">
+
+        <table class="table custom-table">
+
+            <thead>
+                <tr>
+                    <th>
+
+                        <a asp-action="List"
+                           asp-route-searchString="@ViewBag.CurrentSearch"
+                           asp-route-sortOrder="@ViewBag.RefSort">
+                           RefNo
+
+
+
+                           @if (ViewContext.HttpContext.Request.Query["sortOrder"]=="ref_asc")
+                        {
+                           <span>▲</span>
+                        }
+                        else if (ViewContext.HttpContext.Request.Query["sortOrder"]=="ref_desc")
+                        {
+                        <span>▼</span>
+                        }
+
+
+
+
+                        </a>  
+                        </th>
+
+
+
+                    <th>
+                        <a
+                            asp-action="List"
+                            asp-route-searchString="@ViewBag.CurrentSearch"
+                            asp-route-sortOrder="@ViewBag.RecordedSort"
+                            >Recorded By
+
+                            
+                           @if (ViewContext.HttpContext.Request.Query["sortOrder"]=="record_asc")
+                        {
+                           <span>▲</span>
+                        }
+                        else if (ViewContext.HttpContext.Request.Query["sortOrder"]=="record_desc")
+                        {
+                        <span>▼</span>
+                        }
+                        
+                        
+                        
+                        </a>
+                    </th>
+
+
+
+
+                    <th>
+                        <a
+                            asp-action="List"
+                        asp-route-searchString="@ViewBag.CurrentSearch"
+                        asp-route-sortOrder="@ViewBag.OfficerSort"> 
+                        Officer
+
+
+
+
+                            @if (ViewContext.HttpContext.Request.Query["sortOrder"] == "officer_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewContext.HttpContext.Request.Query["sortOrder"] == "officer_desc")
+                            {
+                                <span>▼</span>
+                            }
+                        </a>
+                    </th>
+
+
+
+
+
+                    <th>
+                        <a asp-action="List"
+                           asp-route-searchString="@ViewBag.CurrentSearch"
+                           asp-route-sortOrder="@ViewBag.TaskSort">
+                            Task
+
+
+                            @if (ViewContext.HttpContext.Request.Query["sortOrder"] == "task_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewContext.HttpContext.Request.Query["sortOrder"] == "task_desc")
+                            {
+                                <span>▼</span>
+                            }
+                        </a>
+                    </th>
+
+
+
+
+                    <th>
+                        <a asp-action="List"
+                           asp-route-searchString="@ViewBag.CurrentSearch"
+                           asp-route-sortOrder="@ViewBag.DesignationSort">
+                            Designation
+
+
+                            @if (ViewContext.HttpContext.Request.Query["sortOrder"] == "des_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewContext.HttpContext.Request.Query["sortOrder"] == "des_desc")
+                            {
+                                <span>▼</span>
+                            }
+                        </a>
+
+                    </th>
+                    <th>
+                        
+                            <a
+                                asp-action="List"
+                                asp-route-searchString="@ViewBag.CurrentSearch"
+                                asp-route-sortOrder="@ViewBag.CostSort">
+                               Cost
+
+
+
+                                  @if (ViewContext.HttpContext.Request.Query["sortOrder"]=="cost_asc")
+                        {
+                           <span>▲</span>
+                        }
+                        else if (ViewContext.HttpContext.Request.Query["sortOrder"]=="cost_desc")
+                        {
+                        <span>▼</span>
+                        }
+                            </a>
+                        </th>
+
+
+
+                    <th>
+                        <a asp-action="List"
+                           asp-route-searchString="@ViewBag.CurrentSearch"
+                           asp-route-sortOrder="@ViewBag.RegistrationSort">
+                           Registration
+
+
+                            @if (ViewContext.HttpContext.Request.Query["sortOrder"] == "reg_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewContext.HttpContext.Request.Query["sortOrder"] == "reg_desc")
+                            {
+                                <span>▼</span>
+                            }
+
+                       </a>
+                    </th>
+
+
+                    <th>
+                        <a asp-action="List"
+                           asp-route-searchString="@ViewBag.CurrentSearch"
+                           asp-route-sortOrder="@ViewBag.SanctionSort">
+                           
+                           Sanction
+
+
+                            @if (ViewContext.HttpContext.Request.Query["sortOrder"] == "sanc_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewContext.HttpContext.Request.Query["sortOrder"] == "sanc_desc")
+                            {
+                                <span>▼</span>
+                            }
+
+
+                       
+                       </a>
+                    </th>
+
+
+
+
+
+                    <th>Other Budget</th>
+
+
+
+
+                    <th>
+                        <a asp-action="List"
+                           asp-route-searchString="@ViewBag.CurrentSearch"
+                           asp-route-sortOrder="@ViewBag.ExecutionSort">
+                           
+                           Execution Officer
+
+
+                            @if (ViewContext.HttpContext.Request.Query["sortOrder"] == "exe_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewContext.HttpContext.Request.Query["sortOrder"] == "exe_desc")
+                            {
+                                <span>▼</span>
+                            }
+                       </a>
+                    </th>
+                    <th>
+
+                        <a
+                            asp-action="List"
+                           asp-route-searchString="@ViewBag.CurrentSearch"
+                           asp-route-sortOrder="@ViewBag.DateSort">
+                           
+                           Created Date
+
+
+                            @if (ViewContext.HttpContext.Request.Query["sortOrder"] == "date_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewContext.HttpContext.Request.Query["sortOrder"] == "date_desc")
+                            {
+                                <span>▼</span>
+                            }
+
+
+                       
+                       
+                       </a>
+
+                    </th>
+
+                    <th>
+                        <a asp-action="List"
+                           asp-route-searchString="@ViewBag.CurrentSearch"
+                           asp-route-sortOrder="@ViewBag.DepartmentSort">
+                           
+                           
+
+                           Department
+
+
+                            @if (ViewContext.HttpContext.Request.Query["sortOrder"] == "dept_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewContext.HttpContext.Request.Query["sortOrder"] == "dept_desc")
+                            {
+                                <span>▼</span>
+                            }
+                       </a>
+                    </th>
+                 
+                  
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.RefNo</td>
+                        <td>@item.RecordedBy</td>
+                        <td>@item.Officer</td>
+                        <td>@item.NameTasked</td>
+                        <td>@item.Designation</td>
+                        <td>@item.EstimatedCost</td>
+                        <td>@item.RegistrationType</td>
+                        <td>@item.SanctionType</td>
+                        <td>@item.OtherBudgetDetails</td>
+                        <td>@item.ExecutionOfficerIncharge</td>
+                        <td>@item.CreatedAt.ToString("dd-MMM-yyyy")</td>
+                       
+                        <td>@item.Department.DepartmentName</td>
+
+
+                        <td>
+                            <a asp-action="Edit"
+                               asp-route-id="@item.Id"
+                               class="edit-btn">
+                                Edit
+                            </a>
+                        </td>
+
+
+                        <td>
+                            <a asp-action="Delete"
+                               asp-route-id="@item.Id"
+                               class="delete-btn"
+                               onclick="return confirm('Are you sure you want to delete this record?');">
+                                Delete
+                            </a>
+                        </td>
+
+                        <td>
+                            <a
+                                asp-action="PageView"
+                            asp-route-id="@item.Id"
+                            class="view-btn"
+                           >View</a>
+                        </td>
+
+                       
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+        <a asp-action="Back" class="edit-btn">Main Page</a>
+
+        @* <button asp-action="Back" class="delete-btn">Home Page</button> *@
+
+
+
+    </div>
+
+</div>
