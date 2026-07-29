@@ -112,7 +112,7 @@ namespace NECOP_Form.Controllers
                 }
 
                 dg.FilePath = "/uploads/" + fileName;
-            }
+            }   
 
             _context.Designations.Add(dg); //database mein save karna ha
 
