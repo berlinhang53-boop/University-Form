@@ -1,13 +1,15 @@
-using NECOP_Form.Data;
 using Microsoft.EntityFrameworkCore;
+using NECOP_Form.Data;
+using NECOP_Form.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 
+// ye sql server k lie
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseSqlServer(
-//        builder.Configuration.GetConnectionString("DefaultConnection")   ye SQL SERVER USE KRNY K LIE
+//        builder.Configuration.GetConnectionString("DefaultConnection")   
 //    ));
 
 
@@ -32,11 +34,62 @@ var app = builder.Build();
 //}
 
 
+
+
+
+
+
+
+
+
+
+// ye line add krni hai deployment k lie
+
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+//    db.Database.Migrate();
+//}
+
+
+
+
+
+
+
+
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     db.Database.Migrate();
+
+    // Seed Designation dropdown list
+    if (!db.DgModels.Any())
+    {
+        db.DgModels.AddRange(
+            new DgModel { Name = "Manager" },
+            new DgModel { Name = "Developer" },
+            new DgModel { Name = "Analyst" }
+        );
+    }
+
+    // Seed Department dropdown list
+    if (!db.Departments.Any())
+    {
+        db.Departments.AddRange(
+            new DepartmentModel { DepartmentName = "IT" },
+            new DepartmentModel { DepartmentName = "HR" },
+            new DepartmentModel { DepartmentName = "Finance" }
+        );
+    }
+
+    db.SaveChanges();
 }
+
+
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
