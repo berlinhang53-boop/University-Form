@@ -274,6 +274,9 @@ ServiceFabricBackup/
 *.ldf
 *.ndf
 
+
+wwwroot/uploads/
+
 # Business Intelligence projects
 *.rdl.data
 *.bim.layout
