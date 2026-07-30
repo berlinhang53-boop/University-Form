@@ -35,4 +35,8 @@ ENTRYPOINT ["dotnet", "NECOP Form.dll"]
 
 
 
-
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+RUN mkdir -p /app/wwwroot/uploads && chown -R $APP_UID /app/wwwroot/uploads
+ENTRYPOINT ["dotnet", "NECOP Form.dll"]

@@ -70,7 +70,10 @@ using (var scope = app.Services.CreateScope())
         db.DgModels.AddRange(
             new DgModel { Name = "Manager" },
             new DgModel { Name = "Developer" },
-            new DgModel { Name = "Analyst" }
+            new DgModel { Name = "Analyst" },
+            new DgModel { Name = "BPS 21" },
+            new DgModel { Name = "HR SPECIALIST" },
+            new DgModel { Name = "Editor" }
         );
     }
 
@@ -80,7 +83,10 @@ using (var scope = app.Services.CreateScope())
         db.Departments.AddRange(
             new DepartmentModel { DepartmentName = "IT" },
             new DepartmentModel { DepartmentName = "HR" },
-            new DepartmentModel { DepartmentName = "Finance" }
+            new DepartmentModel { DepartmentName = "Finance" },
+              new DepartmentModel { DepartmentName = "Power Supply" },
+            new DepartmentModel { DepartmentName = "Electronics" },
+            new DepartmentModel { DepartmentName = "Education" }
         );
     }
 
