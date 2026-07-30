@@ -5,9 +5,17 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(
+//        builder.Configuration.GetConnectionString("DefaultConnection")   ye SQL SERVER USE KRNY K LIE
+//    ));
+
+
+
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")   // ye postgree sql use karny k lie
     ));
 
 // Add services to the container.
@@ -52,4 +60,4 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 
-app.Run();
+app.Run();  
