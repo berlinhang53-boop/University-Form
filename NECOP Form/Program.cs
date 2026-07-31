@@ -115,6 +115,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseStaticFiles();  //UseStaticFiles() runtime par wwwroot folder ke andar ki saari files ko dynamically serve karta hai — chahe wo build time pe thi ya baad mein upload hui hon.
+
 app.UseAuthorization();
 
 app.MapStaticAssets();
