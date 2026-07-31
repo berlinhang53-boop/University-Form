@@ -458,7 +458,69 @@ namespace NECOP_Form.Controllers
         }
 
 
-        
+
+
+
+
+    //    [HttpPost]
+    //    public async Task<IActionResult> AddDesignation(string designationName)
+    //    {
+    //        if (string.IsNullOrWhiteSpace(designationName))
+    //            return Json(new { success = false, message = "Designation name is required." });
+
+    //        var trimmedName = designationName.Trim();
+
+    //        var exists = await _context.DgModels
+    //            .AnyAsync(d => d.Name.ToLower() == trimmedName.ToLower());
+
+    //        if (exists)
+    //            return Json(new { success = false, message = "This designation already exists." });
+
+    //        var newDesignation = new DgModel
+    //        {
+    //            Name = trimmedName
+    //        };
+
+    //        _context.DgModels.Add(newDesignation);
+    //        await _context.SaveChangesAsync();
+
+    //        return Json(new { success = true, name = newDesignation.Name });
+    //    }
+
+    //    [HttpPost]
+    //    public async Task<IActionResult> AddDepartment(string departmentName)
+    //    {
+    //        if (string.IsNullOrWhiteSpace(departmentName))
+    //            return Json(new { success = false, message = "Department name is required." });
+
+    //        var trimmedName = departmentName.Trim();
+
+    //        var exists = await _context.Departments
+    //            .AnyAsync(d => d.DepartmentName.ToLower() == trimmedName.ToLower());
+
+    //        if (exists)
+    //            return Json(new { success = false, message = "This department already exists." });
+
+    //        var newDepartment = new DepartmentModel
+    //        {
+    //            DepartmentName = trimmedName
+    //        };
+
+    //        _context.Departments.Add(newDepartment);
+    //        await _context.SaveChangesAsync();
+
+    //        return Json(new { success = true, id = newDepartment.DepartmentId, name = newDepartment.DepartmentName });
+    //    }
+
+
 
     }
+
+
+
+
 }
+
+
+
+

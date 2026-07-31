@@ -1,0 +1,258 @@
+﻿
+@{
+    ViewBag.Title = "Manage Designations & Departments";
+}
+
+<link rel="stylesheet" href="~/css/Designation.css" />
+
+<div class="student-page">
+
+    <div class="student-header">
+        <h2>Admin Panel - Manage Master Data</h2>
+    </div>
+
+    <div class="row">
+
+        <!-- ================= DESIGNATIONS ================= -->
+        <div class="col-md-6">
+
+            <div class="student-card">
+
+                <h4 class="section-heading">Designations</h4>
+
+                <div style="display:flex; gap:8px; margin-bottom:15px;">
+                    <input type="text" id="newDesignationText" class="form-control" placeholder="New Designation..." />
+                    <button type="button" id="saveDesignationBtn" class="btn btn-success">Add</button>
+                </div>
+
+                <table class="table table-bordered" id="designationTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th style="width:140px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Designations)
+                        {
+                            <tr data-id="@item.Id">
+                                <td class="item-name">@item.Name</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary edit-designation-btn">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger delete-designation-btn">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- ================= DEPARTMENTS ================= -->
+        <div class="col-md-6">
+
+            <div class="student-card">
+
+                <h4 class="section-heading">Departments</h4>
+
+                <div style="display:flex; gap:8px; margin-bottom:15px;">
+                    <input type="text" id="newDepartmentText" class="form-control" placeholder="New Department..." />
+                    <button type="button" id="saveDepartmentBtn" class="btn btn-success">Add</button>
+                </div>
+
+                <table class="table table-bordered" id="departmentTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th style="width:140px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Departments)
+                        {
+                            <tr data-id="@item.DepartmentId">
+                                <td class="item-name">@item.DepartmentName</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary edit-department-btn">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-danger delete-department-btn">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+         <a asp-action="Back" asp-controller="Designation" class="view-btn"> Home Page </a>
+    <a asp-action="Logout" asp-controller="Admin" class="btn btn-outline-danger float-end">Logout</a>
+   
+
+         
+
+</div>
+
+
+
+
+@* Anti-forgery token hidden field (agar aapke project mein use ho raha hai) *@
+@Html.AntiForgeryToken()
+
+<script>
+
+    function getAntiForgeryToken() {
+        var tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+        return tokenInput ? tokenInput.value : "";
+    }
+
+    function postData(url, params) {
+        return fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "RequestVerificationToken": getAntiForgeryToken()
+            },
+            body: new URLSearchParams(params)
+        }).then(res => res.json());
+    }
+
+    // ============ DESIGNATION: ADD ============
+    document.getElementById("saveDesignationBtn").addEventListener("click", function() {
+
+        var text = document.getElementById("newDesignationText").value.trim();
+        if (text === "") { alert("Please enter a designation name."); return; }
+
+        postData("/Admin/AddDesignation", { designationName: text })
+            .then(data => {
+                if (data.success) {
+                    var tbody = document.querySelector("#designationTable tbody");
+                    var row = document.createElement("tr");
+                    row.setAttribute("data-id", data.id);
+                    row.innerHTML = `
+                            <td class="item-name">${data.name}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary edit-designation-btn">Edit</button>
+                                <button type="button" class="btn btn-sm btn-danger delete-designation-btn">Delete</button>
+                            </td>`;
+                    tbody.appendChild(row);
+                    document.getElementById("newDesignationText").value = "";
+                } else {
+                    alert(data.message);
+                }
+            });
+    });
+
+    // ============ DEPARTMENT: ADD ============
+    document.getElementById("saveDepartmentBtn").addEventListener("click", function() {
+
+        var text = document.getElementById("newDepartmentText").value.trim();
+        if (text === "") { alert("Please enter a department name."); return; }
+
+        postData("/Admin/AddDepartment", { departmentName: text })
+            .then(data => {
+                if (data.success) {
+                    var tbody = document.querySelector("#departmentTable tbody");
+                    var row = document.createElement("tr");
+                    row.setAttribute("data-id", data.id);
+                    row.innerHTML = `
+                            <td class="item-name">${data.name}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary edit-department-btn">Edit</button>
+                                <button type="button" class="btn btn-sm btn-danger delete-department-btn">Delete</button>
+                            </td>`;
+                    tbody.appendChild(row);
+                    document.getElementById("newDepartmentText").value = "";
+                } else {
+                    alert(data.message);
+                }
+            });
+    });
+
+    // ============ DESIGNATION: EDIT (event delegation) ============
+    document.querySelector("#designationTable tbody").addEventListener("click", function(e) {
+
+        if (e.target.classList.contains("edit-designation-btn")) {
+
+            var row = e.target.closest("tr");
+            var id = row.getAttribute("data-id");
+            var nameCell = row.querySelector(".item-name");
+            var currentName = nameCell.textContent;
+
+            var newName = prompt("Edit Designation:", currentName);
+            if (newName === null || newName.trim() === "") return;
+
+            postData("/Admin/EditDesignation", { id: id, designationName: newName.trim() })
+                .then(data => {
+                    if (data.success) {
+                        nameCell.textContent = data.name;
+                    } else {
+                        alert(data.message);
+                    }
+                });
+        }
+
+        if (e.target.classList.contains("delete-designation-btn")) {
+
+            var row = e.target.closest("tr");
+            var id = row.getAttribute("data-id");
+
+            if (!confirm("Delete this designation?")) return;
+
+            postData("/Admin/DeleteDesignation", { id: id })
+                .then(data => {
+                    if (data.success) {
+                        row.remove();
+                    } else {
+                        alert(data.message);
+                    }
+                });
+        }
+    });
+
+    // ============ DEPARTMENT: EDIT (event delegation) ============
+    document.querySelector("#departmentTable tbody").addEventListener("click", function(e) {
+
+        if (e.target.classList.contains("edit-department-btn")) {
+
+            var row = e.target.closest("tr");
+            var id = row.getAttribute("data-id");
+            var nameCell = row.querySelector(".item-name");
+            var currentName = nameCell.textContent;
+
+            var newName = prompt("Edit Department:", currentName);
+            if (newName === null || newName.trim() === "") return;
+
+            postData("/Admin/EditDepartment", { id: id, departmentName: newName.trim() })
+                .then(data => {
+                    if (data.success) {
+                        nameCell.textContent = data.name;
+                    } else {
+                        alert(data.message);
+                    }
+                });
+        }
+
+        if (e.target.classList.contains("delete-department-btn")) {
+
+            var row = e.target.closest("tr");
+            var id = row.getAttribute("data-id");
+
+            if (!confirm("Delete this department?")) return;
+
+            postData("/Admin/DeleteDepartment", { id: id })
+                .then(data => {
+                    if (data.success) {
+                        row.remove();
+                    } else {
+                        alert(data.message);
+                    }
+                });
+        }
+    });
+
+</script>

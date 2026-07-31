@@ -6,7 +6,8 @@ using NECOP_Form.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 
-// ye sql server k lie
+//ye sql server k lie
+
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseSqlServer(
 //        builder.Configuration.GetConnectionString("DefaultConnection")   
@@ -14,10 +15,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+});
+
+
+
+
+// ye postgree sql use karny k lie
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(
-        builder.Configuration.GetConnectionString("DefaultConnection")   // ye postgree sql use karny k lie
+        builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
 // Add services to the container.
@@ -114,11 +125,12 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseSession();
 
 app.UseStaticFiles();  //UseStaticFiles() runtime par wwwroot folder ke andar ki saari files ko dynamically serve karta hai — chahe wo build time pe thi ya baad mein upload hui hon.
 
 app.UseAuthorization();
-
+app.UseSession();
 app.MapStaticAssets();
 
 app.MapControllerRoute(
