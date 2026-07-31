@@ -71,9 +71,14 @@ using (var scope = app.Services.CreateScope())
             new DgModel { Name = "Manager" },
             new DgModel { Name = "Developer" },
             new DgModel { Name = "Analyst" },
-            new DgModel { Name = "BPS 21" },
+
+               new DgModel { Name = "BPS 21" },
             new DgModel { Name = "HR SPECIALIST" },
-            new DgModel { Name = "Editor" }
+            new DgModel { Name = "SPS 10" },
+             new DgModel { Name = "SPS 8" }
+
+
+
         );
     }
 
@@ -84,9 +89,11 @@ using (var scope = app.Services.CreateScope())
             new DepartmentModel { DepartmentName = "IT" },
             new DepartmentModel { DepartmentName = "HR" },
             new DepartmentModel { DepartmentName = "Finance" },
-              new DepartmentModel { DepartmentName = "Power Supply" },
+            new DepartmentModel { DepartmentName = "Power Supply" },
             new DepartmentModel { DepartmentName = "Electronics" },
-            new DepartmentModel { DepartmentName = "Education" }
+            new DepartmentModel { DepartmentName = "Education" },
+               new DepartmentModel { DepartmentName = "Robotics" }
+
         );
     }
 
