@@ -60,8 +60,13 @@ namespace NECOP_Form.Controllers
         IFormFile ImageFile, //Ye uploaded image receive karta hai.
         IFormFile DocumentFile) //Ye uploaded document receive karta hai.
         {
-            
-            dg.CreatedAt = DateTime.Now; //Current date/time set kar raha hai.
+
+            //dg.CreatedAt = DateTime.Now; Current date/time set kar raha hai.
+
+
+
+            dg.CreatedAt = DateTime.UtcNow; // for postgre sql
+
 
             string uploadFolder = Path.Combine(_environment.WebRootPath, "uploads");  //Ye uploads folder ka path bana raha hai.
 
