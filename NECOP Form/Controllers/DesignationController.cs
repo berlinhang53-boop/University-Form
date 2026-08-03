@@ -218,6 +218,7 @@ namespace NECOP_Form.Controllers
             ViewBag.RegistrationSort = sortOrder == "reg_asc" ? "reg_desc" : "reg_asc";
             ViewBag.SanctionSort = sortOrder == "sanc_asc" ? "sanc_desc" : "sanc_asc";
             ViewBag.CostSort = sortOrder == "cost_asc" ? "cost_desc" : "cost_asc";
+            //ViewBag.detailssort = sortOrder == "detail_asc" ? "detail_desc" : "detail_asc";
             ViewBag.DepartmentSort = sortOrder == "dept_asc" ? "dept_desc" : "dept_asc";
             ViewBag.DateSort = sortOrder == "date_asc" ? "date_desc" : "date_asc";
 
@@ -303,6 +304,18 @@ namespace NECOP_Form.Controllers
                     data = data.OrderByDescending(x => x.EstimatedCost);
                     break;
 
+
+
+
+                //case "detail_asc":
+                //    data = data.OrderBy(x => x.details);
+                //    break;
+
+                //case "detail_desc":
+                //    data = data.OrderByDescending(x => x.details);
+                //    break;
+
+
                 case "dept_asc":
                     data = data.OrderBy(x => x.Department.DepartmentName);
                     break;
@@ -359,10 +372,10 @@ namespace NECOP_Form.Controllers
         }
 
 
-
-
-
-
+                                                                     
+         
+          
+                                                         
         [HttpGet]
         public IActionResult Edit(int id)
         {

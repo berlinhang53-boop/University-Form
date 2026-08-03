@@ -11,6 +11,15 @@
         <h2>Admin Panel - Manage Master Data</h2>
     </div>
 
+
+
+
+
+  @*   <partial name="TopNavigation" /> *@
+   
+
+
+
     <div class="row">
 
         <!-- ================= DESIGNATIONS ================= -->
@@ -46,9 +55,18 @@
                     </tbody>
                 </table>
 
-            </div>
+            </div>  
 
         </div>
+
+         
+
+        
+
+
+
+
+
 
         <!-- ================= DEPARTMENTS ================= -->
         <div class="col-md-6">
@@ -58,7 +76,7 @@
                 <h4 class="section-heading">Departments</h4>
 
                 <div style="display:flex; gap:8px; margin-bottom:15px;">
-                    <input type="text" id="newDepartmentText" class="form-control" placeholder="New Department..." />
+                    <input type="text" id="newDepartmentText" class="form-control" placeholder="New Department..." />  
                     <button type="button" id="saveDepartmentBtn" class="btn btn-success">Add</button>
                 </div>
 
@@ -68,7 +86,7 @@
                             <th>Name</th>
                             <th style="width:140px;">Actions</th>
                         </tr>
-                    </thead>
+                    </thead> 
                     <tbody>
                         @foreach (var item in ViewBag.Departments)
                         {
@@ -89,14 +107,22 @@
 
     </div>
     
-         <a asp-action="Back" asp-controller="Designation" class="view-btn"> Home Page </a>
-    <a asp-action="Logout" asp-controller="Admin" class="btn btn-outline-danger float-end">Logout</a>
-   
+    @* <a asp-action="Back" asp-controller="Designation" class="view-btn"> Home Page </a> *@
+       
+
+    @* <a asp-action="Logout" asp-controller="Admin" class="btn btn-outline-danger float-end">Logout</a> *@
+
+  
+
+    <div class="d-flex justify-content-center my-3">
+        <a asp-action="Logout" asp-controller="Admin" class="btn btn-danger ">Logout</a>
+
+    </div>
+    
 
          
 
 </div>
-
 
 
 
@@ -134,7 +160,7 @@
                     var row = document.createElement("tr");
                     row.setAttribute("data-id", data.id);
                     row.innerHTML = `
-                            <td class="item-name">${data.name}</td>
+                            <td class="item-name">${data.name}</td>                        
                             <td>
                                 <button type="button" class="btn btn-sm btn-primary edit-designation-btn">Edit</button>
                                 <button type="button" class="btn btn-sm btn-danger delete-designation-btn">Delete</button>

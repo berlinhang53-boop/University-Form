@@ -1,0 +1,58 @@
+﻿
+
+
+
+
+
+
+/*
+.page-btn {
+    background: #10B981;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .3s;
+}
+*/
+
+
+
+/* Container jo button ko page ke bilkul center mein layega */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 15px 0; /* Upar aur niche thodi space ke liye */
+}
+
+/* Aapki page-btn class ki styling */
+.page-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    /* Padding aur Size */
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    /* Border Radius (Round Corners) */
+    border-radius: 8px; /* Corner thode round karne ke liye. Agar bilkul capsule shape chahiye toh 25px kar dein */
+    /* Colors (Apne theme ke mutabiq change kar sakte hain) */
+    background-color: #0d6efd;
+    color: #ffffff !important;
+    text-decoration: none;
+    border: none;
+    /* Smooth Transition & Shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    /* Hover Effect (Mouse le jane par) */
+    .page-btn:hover {
+        background-color: #0b5ed7;
+        color: #ffffff !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        transform: translateY(-1px); /* Halka sa upar uthega */
+    }

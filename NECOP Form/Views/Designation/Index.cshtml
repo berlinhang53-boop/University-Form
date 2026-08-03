@@ -59,25 +59,6 @@
 
 
 
-  @*   <div class="quick-add-navbar" style="display:flex; gap:20px; padding:10px; background:#f5f5f5; border-radius:6px; margin-bottom:15px;">
-
-        <!-- Quick Add Designation -->
-        <div style="display:flex; gap:8px; align-items:center;">
-            <input type="text" id="newDesignationText" class="form-control" placeholder="New Designation..." />
-            <button type="button" id="saveDesignationBtn" class="btn btn-success">Save</button>
-        </div>
-
-        <!-- Quick Add Department -->
-        <div style="display:flex; gap:8px; align-items:center;">
-            <input type="text" id="newDepartmentText" class="form-control" placeholder="New Department..." />
-            <button type="button" id="saveDepartmentBtn" class="btn btn-success">Save</button>
-        </div>
-
-    </div> *@
-
-    ``
-
-  @* <a asp-action="AdminPage" asp-controller="Admin" class="btn btn-secondary">Go to Admin Panel</a> *@
 
 
     <a asp-action="Login" asp-controller="Admin" class="btn btn-secondary">Go to Admin Panel</a>
@@ -94,7 +75,11 @@
  
 
 
-    <partial name="TopNavigation" /> @*Total Counts aur List view karny k lie*@
+  @*Total Counts aur List view karny k lie*@
+
+
+    <partial name="TopNavigation" />
+
 
     <form method="post" asp-action="Save" class="student-card" enctype="multipart/form-data">
 
@@ -618,66 +603,6 @@
 
 
 
-          @*   <div class="feedback-section d-none">
-
-                <h4 class="section-heading">
-                    iv. Feedback - End User
-                </h4>
-
-
-                <div class="option-box mb-4">
-
-                    <div class="form-check">
-                        <input asp-for="EndUserFeedback"
-                               value="Excellent"
-                               class="form-check-input"
-                               type="radio">
-
-                        <label>
-                            Excellent
-                        </label>
-                    </div>
-
-
-                    <div class="form-check">
-                        <input asp-for="EndUserFeedback"
-                               value="V.Good"
-                               class="form-check-input"
-                               type="radio">
-
-                        <label>
-                            V.Good
-                        </label>
-                    </div>
-
-
-                    <div class="form-check">
-                        <input asp-for="EndUserFeedback"
-                               value="Good"
-                               class="form-check-input"
-                               type="radio">
-
-                        <label>
-                            Good
-                        </label>
-                    </div>
-
-
-                    <div class="form-check">
-                        <input asp-for="EndUserFeedback"
-                               value="Not Satisfactory"
-                               class="form-check-input"
-                               type="radio">
-
-                        <label>
-                            Not Satisfactory
-                        </label>
-                    </div>
-
-                </div>
-
-            </div> *@
-
             </div>
 
 
@@ -743,98 +668,6 @@
 
 
 
-
-      @*   <script>
-
-                // Anti-forgery token grab karna (agar aapke project mein AddValidateAntiForgeryToken lagi hai)
-                function getAntiForgeryToken() {
-                    var tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
-                    return tokenInput ? tokenInput.value : "";
-                }
-
-                // ---------------- DESIGNATION SAVE ----------------
-                document.getElementById("saveDesignationBtn").addEventListener("click", function() {
-
-                    var text = document.getElementById("newDesignationText").value.trim();
-
-                    if (text === "") {
-                        alert("Please enter a designation name.");
-                        return;
-                    }
-
-                    var formData = new URLSearchParams();
-                    formData.append("designationName", text);
-
-                    fetch("/Designation/AddDesignation", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded",
-                            "RequestVerificationToken": getAntiForgeryToken()
-                        },
-                        body: formData
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) {
-                                var select = document.getElementById("Designation");
-
-                                var option = document.createElement("option");
-                                option.value = data.name;
-                                option.text = data.name;
-                                option.selected = true;
-
-                                select.appendChild(option);
-
-                                document.getElementById("newDesignationText").value = "";
-                            } else {
-                                alert(data.message || "Error saving designation.");
-                            }
-                        })
-                        .catch(err => console.error(err));
-                });
-
-                // ---------------- DEPARTMENT SAVE ----------------
-                document.getElementById("saveDepartmentBtn").addEventListener("click", function() {
-
-                    var text = document.getElementById("newDepartmentText").value.trim();
-
-                    if (text === "") {
-                        alert("Please enter a department name.");
-                        return;
-                    }
-
-                    var formData = new URLSearchParams();
-                    formData.append("departmentName", text);
-
-                    fetch("/Designation/AddDepartment", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded",
-                            "RequestVerificationToken": getAntiForgeryToken()
-                        },
-                        body: formData
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) {
-                                var select = document.getElementById("DepartmentId");
-
-                                var option = document.createElement("option");
-                                option.value = data.id;
-                                option.text = data.name;
-                                option.selected = true;
-
-                                select.appendChild(option);
-
-                                document.getElementById("newDepartmentText").value = "";
-                            } else {
-                                alert(data.message || "Error saving department.");
-                            }
-                        })
-                        .catch(err => console.error(err));
-                });
-
-        </script> *@
 
 
 

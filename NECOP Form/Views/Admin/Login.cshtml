@@ -1,6 +1,9 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Admin Login";
 }
+
+<link rel="stylesheet" href="~/css/Login.css" />
 
 <div class="student-page" style="max-width:400px; margin:60px auto;">
 
@@ -28,6 +31,14 @@
             <button type="submit" class="btn btn-dark w-100">Login</button>
 
         </form>
+        @* <a asp-action="Back" asp-controller="Designation" class="page-btn  justify-content-md-center"> Home Page </a> *@
+
+
+        <div class="button-container">
+            <a asp-action="Back" asp-controller="Designation" class="page-btn">
+                Home Page
+            </a>
+        </div>
 
     </div>
 

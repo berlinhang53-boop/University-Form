@@ -189,6 +189,28 @@
                             </a>
                         </th>
 
+                  @*   <th>
+
+                        <a asp-action="List"
+                           asp-route-searchString="@ViewBag.CurrentSearch"
+                           asp-route-sortOrder="    @ViewBag.detailssort">
+                            Attached Details
+
+                        
+
+
+                            @if (ViewContext.HttpContext.Request.Query["sortOrder"] == "detail_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewContext.HttpContext.Request.Query["sortOrder"] == "detail_desc")
+                            {
+                                <span>▼</span>
+                            }
+                        </a>
+                    </th> *@
+
+
 
 
                     <th>

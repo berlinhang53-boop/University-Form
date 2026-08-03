@@ -8,10 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 //ye sql server k lie
 
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlServer(
-//        builder.Configuration.GetConnectionString("DefaultConnection")   
-//    ));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
 
 
 
@@ -26,10 +26,10 @@ builder.Services.AddSession(options =>
 
 // ye postgree sql use karny k lie
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("DefaultConnection")
-    ));
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseNpgsql(
+//        builder.Configuration.GetConnectionString("DefaultConnection")
+//    ));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -70,46 +70,46 @@ var app = builder.Build();
 
 
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate();
+//using (var scope = app.Services.CreateScope())
+//{
+//    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+//    db.Database.Migrate();
 
-    // Seed Designation dropdown list
-    if (!db.DgModels.Any())
-    {
-        db.DgModels.AddRange(
-            new DgModel { Name = "Manager" },
-            new DgModel { Name = "Developer" },
-            new DgModel { Name = "Analyst" },
+//    // Seed Designation dropdown list
+//    if (!db.DgModels.Any())
+//    {
+//        db.DgModels.AddRange(
+//            new DgModel { Name = "Manager" },
+//            new DgModel { Name = "Developer" },
+//            new DgModel { Name = "Analyst" },
 
-               new DgModel { Name = "BPS 21" },
-            new DgModel { Name = "HR SPECIALIST" },
-            new DgModel { Name = "SPS 10" },
-             new DgModel { Name = "SPS 8" }
+//               new DgModel { Name = "BPS 21" },
+//            new DgModel { Name = "HR SPECIALIST" },
+//            new DgModel { Name = "SPS 10" },
+//             new DgModel { Name = "SPS 8" }
 
 
 
-        );
-    }
+//        );
+//    }
 
-    // Seed Department dropdown list
-    if (!db.Departments.Any())
-    {
-        db.Departments.AddRange(
-            new DepartmentModel { DepartmentName = "IT" },
-            new DepartmentModel { DepartmentName = "HR" },
-            new DepartmentModel { DepartmentName = "Finance" },
-            new DepartmentModel { DepartmentName = "Power Supply" },
-            new DepartmentModel { DepartmentName = "Electronics" },
-            new DepartmentModel { DepartmentName = "Education" },
-               new DepartmentModel { DepartmentName = "Robotics" }
+//    // Seed Department dropdown list
+//    if (!db.Departments.Any())
+//    {
+//        db.Departments.AddRange(
+//            new DepartmentModel { DepartmentName = "IT" },
+//            new DepartmentModel { DepartmentName = "HR" },
+//            new DepartmentModel { DepartmentName = "Finance" },
+//            new DepartmentModel { DepartmentName = "Power Supply" },
+//            new DepartmentModel { DepartmentName = "Electronics" },
+//            new DepartmentModel { DepartmentName = "Education" },
+//               new DepartmentModel { DepartmentName = "Robotics" }
 
-        );
-    }
+//        );
+//    }
 
-    db.SaveChanges();
-}
+//    db.SaveChanges();
+//}
 
 
 

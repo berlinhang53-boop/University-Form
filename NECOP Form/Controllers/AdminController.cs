@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NECOP_Form.Data;
 using NECOP_Form.Models;
@@ -86,7 +87,7 @@ namespace NECOP_Form.Controllers
         //    return RedirectToAction("Manage");
         //}
 
-
+        
         [HttpPost]
         public async Task<IActionResult> AddDesignation(string designationName)
         {
