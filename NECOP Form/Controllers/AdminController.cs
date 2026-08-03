@@ -69,15 +69,43 @@ namespace NECOP_Form.Controllers
 
 
 
+        //public async Task<IActionResult> Manage()
+        //{
+        //    if (HttpContext.Session.GetString("IsAdmin") != "true")
+        //        return RedirectToAction("Login");
+
+        //    ViewBag.Designations = await _context.DgModels.ToListAsync();
+        //    ViewBag.Departments = await _context.Departments.ToListAsync();
+        //    return View();
+        //}
+
+
+
+
+
+
+
+
         public async Task<IActionResult> Manage()
         {
             if (HttpContext.Session.GetString("IsAdmin") != "true")
                 return RedirectToAction("Login");
 
-            ViewBag.Designations = await _context.DgModels.ToListAsync();
+            ViewBag.Designations = await _context.DgModels
+                .Include(d => d.Department)
+                .ToListAsync();
+
             ViewBag.Departments = await _context.Departments.ToListAsync();
+
             return View();
         }
+
+
+
+
+
+
+
 
 
 
@@ -87,33 +115,77 @@ namespace NECOP_Form.Controllers
         //    return RedirectToAction("Manage");
         //}
 
-        
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddDesignation(string designationName)
+        //{
+        //    if (HttpContext.Session.GetString("IsAdmin") != "true")
+        //        return Json(new { success = false, message = "Unauthorized" });
+
+
+        //    if (string.IsNullOrWhiteSpace(designationName))
+        //        return Json(new { success = false, message = "Designation name is required." });
+
+        //    var trimmed = designationName.Trim();
+
+        //    var exists = await _context.DgModels
+        //        .AnyAsync(d => d.Name.ToLower() == trimmed.ToLower());
+
+        //    if (exists)
+        //        return Json(new { success = false, message = "This designation already exists." });
+
+        //    var newDesignation = new DgModel { Name = trimmed };
+
+        //    _context.DgModels.Add(newDesignation);
+        //    await _context.SaveChangesAsync();
+
+        //    return Json(new { success = true, id = newDesignation.Id, name = newDesignation.Name });
+        //}
+
+
+
+
+
         [HttpPost]
-        public async Task<IActionResult> AddDesignation(string designationName)
+        public async Task<IActionResult> AddDesignation(string designationName, int departmentId)
         {
             if (HttpContext.Session.GetString("IsAdmin") != "true")
                 return Json(new { success = false, message = "Unauthorized" });
 
-
             if (string.IsNullOrWhiteSpace(designationName))
                 return Json(new { success = false, message = "Designation name is required." });
+
+            if (departmentId <= 0)
+                return Json(new { success = false, message = "Please select a department." });
 
             var trimmed = designationName.Trim();
 
             var exists = await _context.DgModels
-                .AnyAsync(d => d.Name.ToLower() == trimmed.ToLower());
+                .AnyAsync(d => d.Name.ToLower() == trimmed.ToLower() && d.DepartmentId == departmentId);
 
             if (exists)
-                return Json(new { success = false, message = "This designation already exists." });
+                return Json(new { success = false, message = "This designation already exists in the selected department." });
 
-            var newDesignation = new DgModel { Name = trimmed };
+            var newDesignation = new DgModel
+            {
+                Name = trimmed,
+                DepartmentId = departmentId
+            };
 
             _context.DgModels.Add(newDesignation);
             await _context.SaveChangesAsync();
 
-            return Json(new { success = true, id = newDesignation.Id, name = newDesignation.Name });
-        }
+            var department = await _context.Departments.FindAsync(departmentId);
 
+            return Json(new
+            {
+                success = true,
+                id = newDesignation.Id,
+                name = newDesignation.Name,
+                departmentId = departmentId,
+                departmentName = department?.DepartmentName
+            });
+        }
 
 
         [HttpPost]
