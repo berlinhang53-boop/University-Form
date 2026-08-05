@@ -40,8 +40,8 @@
                         <td class="item-name">@item.Name</td>
                         <td class="item-dept">@(item.Department != null ? item.Department.DepartmentName : "-")</td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-primary edit-designation-btn">Edit</button>
-                            <button type="button" class="btn btn-sm btn-danger delete-designation-btn">Delete</button>
+                            <button type="button" class="btn btn-sm btn-primary edit-designation-btn" id="edit-designation-btn">Edit</button>
+                            <button type="button" class="btn btn-sm btn-danger delete-designation-btn" id="delete-designation-btn">Delete</button>
                         </td>
                     </tr>
                 }
@@ -57,7 +57,7 @@
 </div>
 
 
-@* Anti-forgery token hidden field (agar aapke project mein use ho raha hai) *@
+@* Anti-forgery token hidden field (agar aapke project mein use ho raha hai) *@ 
 @Html.AntiForgeryToken()
 
 <script>
@@ -71,12 +71,13 @@
         return fetch(url, {
             method: "POST",
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/x-www-form-urlencoded", 
                 "RequestVerificationToken": getAntiForgeryToken()
             },
             body: new URLSearchParams(params)
         }).then(res => res.json());
-    }
+    } 
+     
 
     // ============ DESIGNATION: ADD ============
     document.getElementById("saveDesignationBtn").addEventListener("click", function() {

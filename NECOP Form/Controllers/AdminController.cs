@@ -29,6 +29,7 @@ namespace NECOP_Form.Controllers
         {
             return View();
         }
+       
 
         // POST: /Admin/Login
         [HttpPost]
@@ -38,22 +39,25 @@ namespace NECOP_Form.Controllers
             var validPassword = _config["AdminCredentials:Password"];
 
             if (username == validUsername && password == validPassword)
-            {
+            {  
                 HttpContext.Session.SetString("IsAdmin", "true");
                 return RedirectToAction("Manage");
             }
 
             ViewBag.Error = "Invalid Username or Password";
             return View();
-        }
+        } 
 
-
+        
+          
+        
+         
         // GET: /Admin/Logout
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("IsAdmin");
             return RedirectToAction("Login");
-        }
+        }  
 
 
 
@@ -85,7 +89,7 @@ namespace NECOP_Form.Controllers
 
 
 
-
+        
         public async Task<IActionResult> Manage()
         {
             if (HttpContext.Session.GetString("IsAdmin") != "true")
@@ -99,7 +103,7 @@ namespace NECOP_Form.Controllers
 
             return View();
         }
-
+        
 
 
 
