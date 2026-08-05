@@ -24,7 +24,7 @@ builder.Services.AddSession(options =>
 
 
 
-// ye postgree sql use karny k lie
+//ye postgree sql use karny k lie
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(
