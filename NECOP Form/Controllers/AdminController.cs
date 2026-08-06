@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NECOP_Form.Data;
 using NECOP_Form.Models;
+using System.Reflection.Metadata.Ecma335;
 
 
 namespace NECOP_Form.Controllers
@@ -10,7 +11,7 @@ namespace NECOP_Form.Controllers
     public class AdminController : Controller
     {
 
-
+       
 
         private readonly ApplicationDbContext _context; // apna actual DbContext naam lagayen
 
@@ -48,8 +49,8 @@ namespace NECOP_Form.Controllers
             return View();
         } 
 
-        
-          
+                                                                   
+           
         
          
         // GET: /Admin/Logout
@@ -57,9 +58,9 @@ namespace NECOP_Form.Controllers
         {
             HttpContext.Session.Remove("IsAdmin");
             return RedirectToAction("Login");
-        }  
-
-
+        }                                                                                  
+                                                                                                                    
+                                                                                     
 
         // GET: /Admin/Manage  View
         //public async Task<IActionResult> Manage()
@@ -83,7 +84,7 @@ namespace NECOP_Form.Controllers
         //    return View();
         //}
 
-
+       
 
 
 
@@ -106,7 +107,7 @@ namespace NECOP_Form.Controllers
         
 
 
-
+        
 
 
 
@@ -336,10 +337,14 @@ namespace NECOP_Form.Controllers
             _context.Departments.Remove(item);
             await _context.SaveChangesAsync();
 
+
+         
+
             return Json(new { success = true });
         }
     
 
+        
 
 
 
@@ -348,6 +353,7 @@ namespace NECOP_Form.Controllers
 
 
 
+       
 
 
         public IActionResult Index()
